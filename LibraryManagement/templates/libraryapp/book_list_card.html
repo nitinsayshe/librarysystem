@@ -1,0 +1,53 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+
+<!-- CSS CUSTOM -->
+
+{% if user.is_authenticated %}
+	<p>Hi {{ user.full_name }}, <br>Welcome to Library Managment System by Nitin!</p>
+	<p align="right"><a href="{% url 'logout' %}">Log Out</a></p>
+{%if user.is_staff %}
+<div align="right">
+   <a href="{% url 'add_books' %}" >
+                    <i class="fas fa-plus"></i> Add New
+                </a>
+    <p>(Admin)</p>
+</div>
+{%endif%}
+
+<div class="container" >
+    <div class="row">
+     {%for i in booklist%}
+        <div class="col-md-3">
+             <div class="contact-box center-version">
+            <img src="{% static 'book.jpg'%}" width="100" height="150" alt="...">
+                <h5 class="card-title">{{ i.bookName }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">{{ i.bookAuthor }}</h6>
+                <h6>{{i.bookPrice}} Rs</h6>
+                <p class="card-text">{{i.bookSummary}}</p>
+                 {% if user.is_staff %}
+                <a href="{% url 'update_book' i.id %}" class="btn text-secondary px-0">
+                <i class="far fa-edit fa-lg"></i></a>
+
+                <form action="{% url 'delete_books' i.id %}" method="post" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                 {%endif%}
+             </div>
+
+  </div>
+
+  {% endfor %}
+</div>
+</div>
+
+{% else %}
+	<p>You are not logged in!</p>
+	<a href="{% url 'login' %}">Log In</a> /
+	<a href="{% url 'signup' %}">Sign Up</a>
+{% endif %}
+{% endblock content%}

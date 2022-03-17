@@ -1,0 +1,10 @@
+{% extends "base.html"%}
+{% block content %}
+{% load static %}
+<h2>Hello Keywordio</h2>
+<p>This Project is by Nitin Sayshe 9975495679</p>
+
+	<a href="{% url 'login' %}">Log In</a> /
+	<a href="{% url 'signup' %}">Sign Up</a>
+
+{% endblock content%}

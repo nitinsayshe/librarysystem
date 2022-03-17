@@ -1,0 +1,26 @@
+{% extends "base.html"%}
+{% block content %}
+{% if user.is_authenticated %}
+{%load crispy_forms_tags%}
+    <form action="" method="post" enctype="multipart/form-data">
+        <div>
+    {%csrf_token%}
+    {{form|crispy}}
+        </div>
+    <div class="row">
+        <div class="col-md-8">
+            <button type="submit" class="btn btn-success btn-block btn-lg"><i class="fas fa-database"></i>
+                Submit</button>
+        </div>
+        <div class="col-md-4">
+            <a href="{% url 'book_list' %}" class="btn btn-secondary btn-block btn-lg">
+                <i class="fas fa-stream"></i> Back to list</a>
+        </div>
+    </div>
+    </form>
+{% else %}
+	<p>You are not logged in!</p>
+	<a href="{% url 'login' %}">Log In</a> /
+	<a href="{% url 'signup' %}">Sign Up</a>
+{%endif%}
+{% endblock content%}
