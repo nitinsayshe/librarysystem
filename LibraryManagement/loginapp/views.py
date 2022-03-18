@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm,AuthenticationForm
+from django.contrib import messages
 
 from .forms import SignUpForm
 
@@ -28,6 +29,7 @@ def signup(request):
             # raw_password = form.cleaned_data.get('password1')
             # user = authenticate(username=user.username, password=raw_password)
             # login(request, user)
+
             return redirect('login')
             #return render(request,'libraryapp/book_list_card.html')
     else:
